@@ -53,13 +53,19 @@ public class SimpleCipherTool implements Cipher {
             if (index < 0) {
                 builder.append(character);
             } else {
-
                 int textCharValue = ALPHABET_VALUES[index];
                 int keywordValue = keywordValues[currentPosition];
-                int decipherPosition = (textCharValue - keywordValue < 0 ) ? (textCharValue - keywordValue + 26)
+                int alphabetMaxValue = ALPHABET_VALUES[ALPHABET_VALUES.length - 1];
+
+                int decipherPosition = (textCharValue - keywordValue < 0 )
+                        ? (textCharValue - keywordValue + alphabetMaxValue)
                         : (textCharValue - keywordValue);
                 int idx = decipherPosition - 1; //arrays is started from zero
-                idx = (idx < 0) ? 25 : idx;
+
+                int lastAlphabetCharsIndex = ALPHABET_CHARS.length - 1;
+
+                idx = (idx < 0) ? lastAlphabetCharsIndex : idx;
+
                 builder.append(ALPHABET_CHARS[idx]);
             }
             updateNextPosition();
